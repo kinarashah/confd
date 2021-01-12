@@ -3,6 +3,8 @@ set -e
 
 source $(dirname $0)/version
 
+echo "build logic" ${VERSION}
+
 cd $(dirname $0)/..
 
 PKG="rancher/confd"

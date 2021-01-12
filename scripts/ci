@@ -3,5 +3,6 @@ set -e
 
 cd $(dirname $0)
 
-./test
-./build
+# ./test
+# ./build
+./version

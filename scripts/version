@@ -1,15 +1,29 @@
 #!/bin/bash
 
+echo "entered VERSION!"
+ls
+cd $(dirname $0)/
+pwd
+git status --porcelain --untracked-files=no
+
 if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+    echo "assigning dirty!"
     DIRTY="-dirty"
 fi
 
 COMMIT=$(git rev-parse --short HEAD)
+echo ${COMMIT}
 GIT_TAG=${DRONE_TAG:-$(git tag -l --contains HEAD | head -n 1)}
+echo ${GIT_TAG}
+echo "drone tag"
+echo ${DRONE_TAG}
 
-if [[ -z "$DIRTY" && -n "$GIT_TAG" ]]; then 
+if [[ -z "$DIRTY" && -n "$GIT_TAG" ]]; then
+    echo "assigning version here! to GIT_TAG"
     VERSION=$GIT_TAG
+    echo ${VERSION}
 else
+    echo "assining version here to commit_dirty!"
     VERSION="${COMMIT}${DIRTY}"
 fi
 
